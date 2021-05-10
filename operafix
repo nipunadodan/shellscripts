@@ -1,4 +1,8 @@
 #!/bin/bash
+# Opera browser on Ubuntu has a big issue of not being able to play some video formats due to a licensing issue with ffmpeg.
+# so this is a hack to get it linked with a 3rd party
+# (installed via snap - the other version didn't work) ffmpeg repository to make the browser play videos again.
+
 for d in /snap/chromium-ffmpeg/current/chromium-ffmpeg-*/ ; do
     #echo "$d"
     SUBSTRING=$(echo $d| cut -d'-' -f 4)
@@ -11,7 +15,7 @@ for d in /snap/chromium-ffmpeg/current/chromium-ffmpeg-*/ ; do
      then
         biggest="$SUBSTRING"
      fi
-    
+
 done
 
 killall opera

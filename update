@@ -1,2 +1,4 @@
 #!/bin/bash
+# It's pretty much self-explanatory. Yeah it's to update the system. Because why not?
+
 sudo apt update && sudo apt upgrade

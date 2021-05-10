@@ -1,2 +1,5 @@
 #!/bin/bash
+# this script will get an input of a process and will kill it
+# essentially a shortcut to get something killed instantly (pun intended)
+
 kill -9 $(pgrep -f $1)

@@ -1,2 +1,4 @@
 #!/bin/bash
+# filling the swap on traditional HDD is a pain in a**. This is a shortcut to make it clean. Nothing fancy.
+
 sudo swapoff -a && sudo swapon -a
