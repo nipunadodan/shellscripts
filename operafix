@@ -4,17 +4,15 @@
 # (installed via snap - the other version didn't work) ffmpeg repository to make the browser play videos again.
 # Dependencies: sudo snap install chromium-ffmpeg
 
+biggest=0
 for d in /snap/chromium-ffmpeg/current/chromium-ffmpeg-*/ ; do
     SUBSTRING=$(echo $d| cut -d'-' -f 4)
     SUBSTRING=${SUBSTRING%/}
     
-    biggest=0
-    
     if [[ $SUBSTRING -gt $biggest ]]
      then
-        biggest="$SUBSTRING"
+        biggest=$SUBSTRING
      fi
-
 done
 
 killall opera
