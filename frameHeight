@@ -1,0 +1,19 @@
+IFS=$'\n'; set -f
+BLUE='\033[1;36m'
+RED='\033[0;31m'
+NC='\033[0m' # No Color
+read -p 'Where you want to search (File path): ' FILE_PATH
+FILE_PATH=$(eval echo $FILE_PATH)
+read -p 'Set the width you want to search (Default HD 1920): ' TEST_HEIGHT
+if [ -d "$FILE_PATH" ]; then
+	for f in $(find "$FILE_PATH" -name '*.mkv' -or -name '*.mp4' -or -name '*.avi'); do 
+		HEIGHT=$(ffprobe -v quiet -select_streams v:0 -show_entries stream=width -of csv=s=x:p=0 $f) #use error instead of quiet if need to print errors
+		WIDTH=$(ffprobe -v quiet -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 $f) #use error instead of quiet if need to print errors
+		if [ ${HEIGHT} -ge ${TEST_HEIGHT} ];then
+			echo -e [${BLUE}$WIDTH${NC}] $f;
+		fi
+	done;
+else
+	echo -e ${RED}Directory not found${NC}
+fi
+unset IFS; set +f
