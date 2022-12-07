@@ -16,7 +16,9 @@ for d in /snap/chromium-ffmpeg/current/chromium-ffmpeg-*/ ; do
 done
 
 killall opera
+
 cd /usr/lib/x86_64-linux-gnu/opera
 sudo mv libffmpeg.so libffmpeg.so.bak
 sudo ln -sf /snap/chromium-ffmpeg/current/chromium-ffmpeg-"$biggest"/chromium-ffmpeg/libffmpeg.so libffmpeg.so
+
 echo "DONE"
