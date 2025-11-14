@@ -1,0 +1,110 @@
+# **********************************************************************
+# "CPU Panel (8-core)" theme for Conky by Tony George (teejee2008@gmail.com)
+#
+# Webpage: http://teejeetech.blogspot.in/
+# **********************************************************************
+
+
+background yes
+double_buffer yes
+
+alignment top_right
+
+border_width 1
+cpu_avg_samples 2
+default_color white
+default_outline_color white
+default_shade_color white
+draw_borders no
+draw_graph_borders yes
+draw_outline no
+draw_shades no
+
+gap_x 80
+gap_y 80
+net_avg_samples 2
+no_buffers yes
+out_to_console no
+out_to_stderr no
+extra_newline no
+
+own_window yes
+own_window_type dock
+own_window_transparent yes
+own_window_colour 000000
+own_window_argb_visual yes
+own_window_argb_value 0
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+
+minimum_size 170 0
+stippled_borders 0
+update_interval 2.0
+uppercase no
+use_spacer none
+
+show_graph_scale no
+show_graph_range no
+draw_graph_borders no
+
+use_xft yes
+xftalpha 0.1
+xftfont Ubuntu:size=10
+color0 white
+color1 999999
+color2 e2941d
+color3 FFA300
+network1 wlo1
+
+
+TEXT
+${alignc}${font Ubuntu:size=48}${time %H:%M}${font}
+${alignc}${font Ubuntu:size=15}${time %a %Y %b %d}${font}
+
+${color2}SYSTEM ${hr 1}${color0}
+${font Ubuntu:size=18}${execi 1000 cat /etc/os-release | grep 'PRETTY_NAME' | sed -e 's/PRETTY_NAME.*: //'| uniq | cut -c 14-31}${font}
+${sysname} $kernel $machine
+
+${color2}CPU ${color0}${alignr}${cpu cpu0}%
+${cpubar cpu0 5,}
+${color1}${execi 1000 cat /proc/cpuinfo | grep 'model name' | sed -e 's/model name.*: //'| uniq}${color0}
+
+${top name 1} $alignr ${top cpu 1}%
+${top name 2} $alignr ${top cpu 2}%
+${top name 3} $alignr ${top cpu 3}%
+
+${color2}RAM ${color0}${alignr}${mem}
+${membar 5,}
+${top_mem name 1} $alignr ${top_mem mem_res 1}
+${top_mem name 2} $alignr ${top_mem mem_res 2}
+${top_mem name 3} $alignr ${top_mem mem_res 3}
+${top_mem name 4} $alignr ${top_mem mem_res 4}
+${top_mem name 5} $alignr ${top_mem mem_res 5}
+
+${color2}SWAP ${color0}${alignr}${swap}
+${swapbar 5,}
+
+${color2}STORAGE ${hr 1}
+${color0}/ ${color0}${alignr} ${fs_type}
+${fs_bar 5 /}
+${fs_used}${alignr}${fs_size}
+
+${color0}/home ${color0}${alignr} ${fs_type /home}
+${fs_bar 5 /home}
+${fs_used /home}${alignr}${fs_size /home}
+
+${color2}MISC ${hr 1}${color0}
+Uptime $alignr ${uptime}
+Load $alignr ${loadavg 1}
+${loadgraph 10,}
+
+${color2}NETWORK ${hr 1}
+${color0}Download ${color0}${alignr}${downspeedf wlo1} KiB/s
+${downspeedgraph wlo1 20,}
+Total$alignr ${totaldown wlo1}
+
+${color0}Upload ${color0}${alignr}${upspeedf wlo1} KiB/s 
+${upspeedgraph ${network} 20,}
+Total$alignr ${totalup wlo1}
+
+${color2}Local${color0}${alignr}${addr wlo1}
+${color2}Public${color0}${alignr}${execi 3600 wget -q -O /dev/stdout http://checkip.dyndns.org/ | cut -d : -f 2- | cut -d \< -f -1}
