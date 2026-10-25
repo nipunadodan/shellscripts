@@ -1,0 +1,24 @@
+#!/bin/bash
+
+choice=$(zenity --list \
+  --title="Script Runner" \
+  --column="Task" \
+  "Opera Fix" \
+  "Update" \
+  "Update System" \
+  "Swap Clean")
+
+case $choice in
+  "Opera Fix")
+    ~/bin/operafix
+    ;;
+  "Update")
+    sudo apt update
+    ;;
+  "Update System")
+    ~/bin/update
+    ;;
+  "Swap Clean")
+    ~/bin/swapclean
+    ;;
+esac
